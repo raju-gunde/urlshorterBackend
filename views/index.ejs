@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head><title>TinyLink Dashboard</title></head>
+<body>
+<h1>TinyLink Dashboard</h1>
+
+<form action="/api/links" method="POST">
+  <input name="url" placeholder="Long URL" required>
+  <input name="code" placeholder="Custom code (optional)">
+  <button type="submit">Create</button>
+</form>
+
+<table border="1" cellpadding="10">
+<tr>
+  <th>Code</th>
+  <th>URL</th>
+  <th>Clicks</th>
+  <th>Last Clicked</th>
+  <th>Delete</th>
+</tr>
+
+<% links.forEach(link => { %>
+<tr>
+  <td><a href="/<%= link.code %>"><%= link.code %></a></td>
+  <td><%= link.url %></td>
+  <td><%= link.total_clicks %></td>
+  <td><%= link.last_clicked %></td>
+  <td>
+    <form action="/api/links/<%= link.code %>?_method=DELETE" method="POST">
+  <button>Delete</button>
+</form>
+  </td>
+</tr>
+<% }) %>
+
+</table>
+</body>
+</html>
